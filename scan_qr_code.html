@@ -99,7 +99,6 @@ button {
         scannerVideo.play();
         scanning = true; 
         requestAnimationFrame(scan);
-        document.querySelector('.overlay').style.display = 'block';
       })
       .catch(function(err) {
         console.error('Error accessing the camera.', err);
@@ -121,8 +120,6 @@ button {
     if (scannerVideo.readyState === scannerVideo.HAVE_ENOUGH_DATA && scanning) {
       canvasElement.height = scannerVideo.videoHeight;
       canvasElement.width = scannerVideo.videoWidth;
-
-    document.querySelector('.overlay').style.width = scannerVideo.videoWidth + 200;
 
       canvasElement.getContext('2d').drawImage(scannerVideo, 0, 0, canvasElement.width, canvasElement.height);
 
