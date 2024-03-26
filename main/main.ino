@@ -20,11 +20,8 @@ byte colPins[COLS] = {26, 25, 33, 32};
 
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
-//const char* ssid = "Corbin's WIFI";
-//const char* password = "e4chn78dsfsdf7";
-
-const char* ssid = "moto g stylus (2022)_9156";
-const char* password = "Ilove3Dart";
+const char* ssid = "CHANGE ME"; //Enter your wifi credentials here
+const char* password = "CHANGE ME"; //Enter your wifi credentials here
 
 int mainDelay = 3000;
 
