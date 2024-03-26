@@ -20,17 +20,18 @@ byte colPins[COLS] = {26, 25, 33, 32};
 
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
+//const char* ssid = "Corbin's WIFI";
+//const char* password = "e4chn78dsfsdf7";
 
-
-const char* ssid = "SSID"; //Change ME
-const char* password = "PASSWORD"; //Change ME
+const char* ssid = "moto g stylus (2022)_9156";
+const char* password = "Ilove3Dart";
 
 int mainDelay = 3000;
 
 unsigned long previousMillis = 0;
 int interval = mainDelay;
 
-
+int page = 0;
 
 WebServer server(80);
 
@@ -155,49 +156,58 @@ void showInfoOnScreen() {
 
       currentTextIndex = (currentTextIndex + 1) % MAX_TEXTS;
     } else if (show >= "0" && show <= "9") {
+      page++;
       int projectIndex = show.toInt();
 
-      lcd.clear();
-      lcd.print(projectName[projectIndex]);
-      lcd.setCursor(0, 1);
-      lcd.print(color[projectIndex]);
-      delay(mainDelay);
+      if (page == 1) {
+        printProjectPage(projectName[projectIndex], ", colr:", color[projectIndex]);
 
-      lcd.clear();
-      lcd.print(projectName[projectIndex]);
-      lcd.setCursor(0, 1);
-      lcd.print(filePrintTime[projectIndex]);
-      delay(mainDelay);
+      } else if (page == 2) {
+        printProjectPage(projectName[projectIndex], ", prt tme:", filePrintTime[projectIndex]);
 
+      } else if (page == 3) {
+        printProjectPage(projectName[projectIndex], ", Fil tpe:", filamentType[projectIndex]);
 
-      String info = otherInfo[projectIndex];
-      int infoLength = info.length();
-      int displayLength = 16;
-      for (int i = 0; i <= infoLength - displayLength; i++) {
+      } else if (page == 4) {
+        String info = otherInfo[projectIndex];
+        int infoLength = info.length();
+        int displayLength = 16;
+        for (int i = 0; i <= infoLength - displayLength; i++) {
+          printProjectPage(projectName[projectIndex], ", othr:", info.substring(i, i + displayLength));
+          delay(500);
+        }
+        if (infoLength % displayLength != 0) {
+          printProjectPage(projectName[projectIndex], ", othr:", info.substring(infoLength - (infoLength % displayLength)));
+        }
+
+      } else if (page == 5) {
         lcd.clear();
-        lcd.print(projectName[projectIndex]);
+        lcd.print("Scan QR code ");
         lcd.setCursor(0, 1);
-        lcd.print(info.substring(i, i + displayLength));
-        delay(500);
-      }
-      if (infoLength % displayLength != 0) {
+        lcd.print("for more info");
+
+      } else if (page == 6) {
+        String message = "or goto: " + WiFi.localIP().toString() + "/qrCode";
+
         lcd.clear();
-        lcd.print(projectName[projectIndex]);
+        lcd.print(message.substring(0, 16));
         lcd.setCursor(0, 1);
-        lcd.print(info.substring(infoLength - (infoLength % displayLength)));
-        delay(mainDelay);
+        lcd.print(message.substring(16));
+
+      } else {
+        page = 0;
       }
-      lcd.clear();
-      lcd.print("Scan QR code ");
-      lcd.setCursor(0, 1);
-      lcd.print("for more info");
-
-      delay(mainDelay);
-
-      lcd.clear();
-      lcd.print("Or goto: ");
-      lcd.setCursor(0, 1);
-      lcd.print("url/qrCode");
     }
   }
+}
+
+
+
+void printProjectPage(String Name, String filler, String content) {
+  lcd.clear();
+  lcd.print("N: ");
+  lcd.print(Name);
+  lcd.print(filler);
+  lcd.setCursor(0, 1);
+  lcd.print(content);
 }
