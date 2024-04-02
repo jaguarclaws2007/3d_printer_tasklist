@@ -63,11 +63,11 @@ button {
       <span class="close close_B">&times;</span>
       <video id="scannerVideo" autoplay></video>
       <canvas id="qrCanvas" style="display: none;"></canvas>
-      <button id="closeModalBtn" class="close_B">Close Modal</button>
+      <button id="closeModalBtn" class="close_B">Close</button>
     </div>
   </div>
 
-  <script src="/3d_printer_tasklist/jsQR.js"></script>
+  <script src="./3d_printer_tasklist/jsQR.js"></script>
   <!-- <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>-->
   <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -88,6 +88,7 @@ button {
   function closeModal() {
     modal.style.display = 'none';
     stopCamera();
+    window.close();
   }
 
   closeModalBtn.addEventListener('click', closeModal);
