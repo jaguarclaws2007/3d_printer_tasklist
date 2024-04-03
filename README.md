@@ -1,43 +1,3 @@
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-  }
-  .container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative; /* Added for positioning the toolbar */
-  }
-  .instructions {
-    color: green;
-  }
-  code {
-    display: inherit;
-    overflow: auto;
-    background-color: black;
-    color: white;
-    padding: 10px;
-  }
-  pre{
-	margin-top: 0px;
-  }
-  .toolbar {
-	display: inherit;
-	width: inherit;
-  }
-  .copy-icon {
-    cursor: pointer;
-  }
-</style>
-</head>
-<body>
-
 <div class="container">
   <h1>3D Printer Tasklist</h1>
   <p>If you are trying to use this for <span class="instructions">3D_Printer_Tasklist</span>, please go <a href="https://www.instructables.com/3D-Printer-Task-List/"> here</a> and follow the instructions.</p>
@@ -83,37 +43,4 @@ function openPopup() {
 	</pre>
   <div>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const copy_code = document.getElementById("Copy-code");
-  const copy_applet = document.getElementById("Copy-applet");
-  
-  const applet = document.getElementById('applet-code');
-  const code = document.getElementById('code');
-
-  copy_code.addEventListener("click", function() {
-    const codetoCopy = code.innerText.trim();
-    copyToClipboard(codetoCopy);
-    alert("Code copied to clipboard!");
-  });
-  
-  copy_applet.addEventListener("click", function() {
-    const codetoCopy = applet.innerText.trim();
-    copyToClipboard(codetoCopy);
-    alert("Code copied to clipboard!");
-  });
-
-  function copyToClipboard(text) {
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textarea);
-  }
-});
-</script>
-
 </body>
-</html>
