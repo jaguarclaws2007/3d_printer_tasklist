@@ -67,77 +67,77 @@ button {
     </div>
   </div>
 
-  <script src="./jsQR.js"></script>
-  <!-- <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>-->
+  <!--<script src="./jsQR.js"></script>-->
+  <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', function() {
-  const closeModalBtn = document.getElementById('closeModalBtn');
-  const modal = document.getElementById('qrModal');
-  const closeIcon = document.getElementsByClassName('close')[0];
-  const scannerVideo = document.getElementById('scannerVideo');
-  const canvasElement = document.getElementById('qrCanvas');
-  let scanning = false;
-
-  openModal();
-
-  function openModal() {
-    modal.style.display = 'block';
-    startCamera();
-  }
-
-  function closeModal() {
-    modal.style.display = 'none';
-    stopCamera();
-    window.close();
-  }
-
-  closeModalBtn.addEventListener('click', closeModal);
-  closeIcon.addEventListener('click', closeModal);
-
-  function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-      .then(function(stream) {
-        scannerVideo.srcObject = stream;
-        scannerVideo.play();
-        scanning = true; 
-        requestAnimationFrame(scan);
-      })
-      .catch(function(err) {
-        console.error('Error accessing the camera.', err);
-      });
-  }
-
-  function stopCamera() {
-    const stream = scannerVideo.srcObject;
-    const tracks = stream.getTracks();
-
-    tracks.forEach(function(track) {
-      track.stop();
-    });
-
-    scannerVideo.srcObject = null;
-  }
-
-  function scan() {
-    if (scannerVideo.readyState === scannerVideo.HAVE_ENOUGH_DATA && scanning) {
-      canvasElement.height = scannerVideo.videoHeight;
-      canvasElement.width = scannerVideo.videoWidth;
-
-      canvasElement.getContext('2d').drawImage(scannerVideo, 0, 0, canvasElement.width, canvasElement.height);
-
-      const imageData = canvasElement.getContext('2d').getImageData(0, 0, canvasElement.width, canvasElement.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert',
-      });
-
-      if (code) {
-        scanning = false; 
-    window.opener.postMessage(code.data, '*');
-        closeModal();
-      }
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('qrModal');
+    const closeIcon = document.getElementsByClassName('close')[0];
+    const scannerVideo = document.getElementById('scannerVideo');
+    const canvasElement = document.getElementById('qrCanvas');
+    let scanning = false;
+  
+    openModal();
+  
+    function openModal() {
+      modal.style.display = 'block';
+      startCamera();
     }
-    requestAnimationFrame(scan);
-  }
+  
+    function closeModal() {
+      modal.style.display = 'none';
+      stopCamera();
+      window.close();
+    }
+  
+    closeModalBtn.addEventListener('click', closeModal);
+    closeIcon.addEventListener('click', closeModal);
+  
+    function startCamera() {
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then(function(stream) {
+          scannerVideo.srcObject = stream;
+          scannerVideo.play();
+          scanning = true; 
+          requestAnimationFrame(scan);
+        })
+        .catch(function(err) {
+          console.error('Error accessing the camera.', err);
+        });
+    }
+  
+    function stopCamera() {
+      const stream = scannerVideo.srcObject;
+      const tracks = stream.getTracks();
+  
+      tracks.forEach(function(track) {
+        track.stop();
+      });
+  
+      scannerVideo.srcObject = null;
+    }
+  
+    function scan() {
+      if (scannerVideo.readyState === scannerVideo.HAVE_ENOUGH_DATA && scanning) {
+        canvasElement.height = scannerVideo.videoHeight;
+        canvasElement.width = scannerVideo.videoWidth;
+  
+        canvasElement.getContext('2d').drawImage(scannerVideo, 0, 0, canvasElement.width, canvasElement.height);
+  
+        const imageData = canvasElement.getContext('2d').getImageData(0, 0, canvasElement.width, canvasElement.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
+          inversionAttempts: 'dontInvert',
+        });
+  
+        if (code) {
+          scanning = false; 
+      window.opener.postMessage(code.data, '*');
+          closeModal();
+        }
+      }
+      requestAnimationFrame(scan);
+    }
 });
 
 
