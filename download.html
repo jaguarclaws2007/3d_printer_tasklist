@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Download Files</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+	body {
+		margin: 0;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border: 5px dashed black;
+		border-radius: 25px;
+		padding: 20px;
+		width: 50vw;
+	}
+
+	.inner-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px;
+	}
+	
+	h1{
+		font-family: Impact;
+	}
+
+	.btn {
+		background-color: #007bff;
+		color: #fff;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		border-radius: 5px;
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+
+	.btn:hover {
+		background-color: #0056b3;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Download Files</h1>
+    <div class="inner-container">
+        <div class="ii-files">
+            <button class="btn" id="credentials-downloadBtn"><i class="fas fa-copy"></i> credentials.h</button>
+            <button class="btn" id="webpages-downloadBtn"><i class="fas fa-copy"></i> Webpages.h</button>
+            <button class="btn" id="main-downloadBtn"><i class="fas fa-copy"></i> Main.ino</button>
+        </div>
+    </div>
+    <button class="btn" id="all-downloadBtn"><i class="fas fa-copy"></i> All files</button>
+</div>
+
+<script>
+document.getElementById("credentials-downloadBtn").addEventListener("click", function() {
+    fetch("https://raw.githubusercontent.com/jaguarclaws2007/3d_printer_tasklist/0c09979eca9e334757effeb3878bb3b2ea1b83e5/main/credentials.h")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const a = document.createElement("a");
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "credentials.h";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+document.getElementById("webpages-downloadBtn").addEventListener("click", function() {
+    fetch("https://raw.githubusercontent.com/jaguarclaws2007/3d_printer_tasklist/0c09979eca9e334757effeb3878bb3b2ea1b83e5/main/webpages.h")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const a = document.createElement("a");
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "Webpages.h";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+document.getElementById("main-downloadBtn").addEventListener("click", function() {
+    fetch("https://raw.githubusercontent.com/jaguarclaws2007/3d_printer_tasklist/0c09979eca9e334757effeb3878bb3b2ea1b83e5/main/main.ino")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const a = document.createElement("a");
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "main.ino";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+document.getElementById("all-downloadBtn").addEventListener("click", function() {
+    fetch("https://raw.githubusercontent.com/jaguarclaws2007/3d_printer_tasklist/0c09979eca9e334757effeb3878bb3b2ea1b83e5/main/main.ino")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const a = document.createElement("a");
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "main.ino";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+	fetch("https://raw.githubusercontent.com/jaguarclaws2007/3d_printer_tasklist/0c09979eca9e334757effeb3878bb3b2ea1b83e5/main/webpages.h")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const a = document.createElement("a");
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "Webpages.h";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+	fetch("https://raw.githubusercontent.com/jaguarclaws2007/3d_printer_tasklist/0c09979eca9e334757effeb3878bb3b2ea1b83e5/main/credentials.h")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const a = document.createElement("a");
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "credentials.h";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+</script>
+</body>
+</html>
